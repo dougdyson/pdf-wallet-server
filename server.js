@@ -1,17 +1,17 @@
-const path = require('path');
+const env = require('dotenv').config();
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const pdfParse = require('pdf-parse');
 const keccak256 = require('keccak256');
 const cors = require('cors');
-const PORT = 5001;
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 
 app.use(fileUpload());
 app.use(cors());
 
-app.post('/extract-text', (req, res) => {
+app.post('/extract', (req, res) => {
   if (!req.files && !req.files.pdfFile) {
     res.status(400);
     res.end();
