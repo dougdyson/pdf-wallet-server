@@ -26,5 +26,3 @@ app.post('/extract', (req, res) => {
 app.listen(PORT, () => {
   console.log(`PDF server listening on port ${PORT}`);
 });
-
-
