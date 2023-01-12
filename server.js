@@ -10,7 +10,7 @@ const app = express();
 app.use(fileUpload());
 app.use(cors());
 
-// need to include headers to allow CORS and authentication.
+// need to include protection against CSRF
 
 app.post('/extract', (req, res) => {
   if (!req.files && !req.files.pdfFile) {
