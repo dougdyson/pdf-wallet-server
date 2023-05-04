@@ -1,5 +1,5 @@
 {
-  "name": "pdf-wallet-server",
+  "name": "pdf-server",
   "version": "1.0.0",
   "description": "extract text and meta data from a pdf and provide back a hash",
   "main": "server.js",

@@ -20,6 +20,7 @@ app.post('/extract', (req, res) => {
 
   pdfParse(req.files.pdfFile).then((result) => {
     const hash = keccak256(result.text).toString('hex');
+    console.log(result.text);
     res.send({hash});
   });
 });
