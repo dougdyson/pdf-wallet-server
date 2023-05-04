@@ -15,7 +15,7 @@ app.use(cors());
 // need to include protection against CSRF!
 
 const embeddings = new OpenAIEmbeddings({openAIApiKey: process.env.OPENAI_API_KEY});
-const docEmbeds = async (text) => await embeddings.embedQuery(text);
+const pdfEmbeddings = async (text) => await embeddings.embedQuery(text);
 const pdfText = async (file) => await pdfParse(file);
 
 app.post('/extract', (req, res) => {
@@ -28,7 +28,7 @@ app.post('/extract', (req, res) => {
     
     const hash = keccak256(result.text).toString('hex');
 
-    docEmbeds(result.text).then((embeds) => {
+    pdfEmbeddings(result.text).then((embeds) => {
       console.log(embeds);
       // write to file as a json object
       fs.writeFile(`./kccsr.json`, JSON.stringify(embeds), (err) => {
