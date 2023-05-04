@@ -2,6 +2,8 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const pdfParse = require('pdf-parse');
 const keccak256 = require('keccak256');
+const env = require('dotenv').config();
+const { OpenAI } = require("langchain/llms/openai");
 const cors = require('cors');
 const PORT = process.env.PORT || 5000;
 
@@ -10,7 +12,11 @@ const app = express();
 app.use(fileUpload());
 app.use(cors());
 
-// need to include protection against CSRF
+// need to include protection against CSRF!
+
+// const openai = new OpenAI({
+//   apiKey: process.env.OPENAI_API_KEY,
+// });
 
 app.post('/extract', (req, res) => {
   if (!req.files && !req.files.pdfFile) {
