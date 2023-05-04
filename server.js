@@ -3,7 +3,7 @@ const fileUpload = require('express-fileupload');
 const pdfParse = require('pdf-parse');
 const keccak256 = require('keccak256');
 const env = require('dotenv').config();
-const { OpenAIEmbeddings } = require("langchain/embeddings/openai");
+// const { OpenAIEmbeddings } = require("langchain/embeddings/openai");
 const cors = require('cors');
 const PORT = process.env.PORT || 5000;
 
@@ -13,12 +13,6 @@ app.use(fileUpload());
 app.use(cors());
 
 // need to include protection against CSRF!
-
-const embeddings = new OpenAIEmbeddings({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-console.log(embeddings);
 
 app.post('/extract', async (req, res) => {
   try {
@@ -31,13 +25,7 @@ app.post('/extract', async (req, res) => {
     const result = await pdfParse(req.files.pdfFile);
     const hash = keccak256(result.text).toString('hex');
 
-    // const openai = new OpenAI({
-    //   apiKey: process.env.OPENAI_API_KEY,
-    // });
-
-    const docEmbeddings = await embeddings(result.text);
-
-    res.send({ docEmbeddings, hash });
+    res.send({ hash });
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: "An error occurred" });
