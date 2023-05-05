@@ -12,7 +12,7 @@ const app = express();
 app.use(fileUpload());
 app.use(cors());
 
-// need to include protection against CSRF
+// need to include protection against CSRF!
 
 const embeddings = new OpenAIEmbeddings({openAIApiKey: process.env.OPENAI_API_KEY});
 const pdfEmbeddings = async (text) => await embeddings.embedQuery(text);
