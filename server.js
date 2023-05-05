@@ -3,6 +3,7 @@ const fileUpload = require('express-fileupload');
 const pdfParse = require('pdf-parse');
 const keccak256 = require('keccak256');
 const env = require('dotenv').config().parsed;
+const { pdfText } = require('./pdfParser');
 const { OpenAIEmbeddings } = require("langchain/embeddings/openai");
 const cors = require('cors');
 const fs = require('fs');
@@ -16,7 +17,6 @@ app.use(cors());
 
 const embeddings = new OpenAIEmbeddings({openAIApiKey: process.env.OPENAI_API_KEY});
 const pdfEmbeddings = async (text) => await embeddings.embedQuery(text);
-const pdfText = async (file) => await pdfParse(file);
 
 app.post('/extract', (req, res) => {
   if (!req.files || !req.files.pdfFile) {
